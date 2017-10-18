@@ -2,6 +2,8 @@
 
 PyTorch MNIST official example with comments & interactive interface.
 
+[深度學習新手村：PyTorch入門（中文）](https://pyliaorachel.github.io/blog/tech/deeplearning/2017/10/16/getting-started-with-deep-learning-with-pytorch.html)
+
 ## Structure
 
 ```
