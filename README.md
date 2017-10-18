@@ -2,6 +2,17 @@
 
 PyTorch MNIST official example with comments & interactive interface.
 
+## Structure
+
+```
+src/
+  train.py    # Train the model
+  model.py    # The defined model
+  app.py      # Interactive predictor
+  model       # Pretrained model, will be overriden when you start training
+  test_n.png  # Sample images for the use of interactive predictor
+```
+
 ## Usage
 
 ```bash
