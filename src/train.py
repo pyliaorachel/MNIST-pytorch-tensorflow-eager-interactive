@@ -42,7 +42,7 @@ def load_data():
 
     return (train_loader, test_loader)
 
-def train(model, epoch, train_loader):
+def train(model, optimizer, epoch, train_loader):
     # State that you are training the model
     model.train()
 
@@ -139,7 +139,7 @@ if __name__ == '__main__':
 
     # Train & test the model
     for epoch in range(1, args.epochs + 1):
-        train(model, epoch, train_loader)
+        train(model, optimizer, epoch, train_loader)
         test(model, test_loader)
 
 
