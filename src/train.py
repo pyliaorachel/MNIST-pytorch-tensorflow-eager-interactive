@@ -15,7 +15,7 @@ from torch.autograd import Variable
 from .model import Net
 
 
-def load_data():
+def load_data(train_batch_size, test_batch_size):
     """Fetch MNIST dataset
 
     MNIST dataset has built-in utilities set up in the `torchvision` package, so we just use the `torchvision.datasets.MNIST` module (http://pytorch.org/docs/master/torchvision/datasets.html#torchvision.datasets.MNIST) to make our lives easier.
@@ -30,7 +30,7 @@ def load_data():
                            transforms.ToTensor(),
                            transforms.Normalize((0.1307,), (0.3081,))
                        ])),
-        batch_size=args.batch_size, shuffle=True, **kwargs)
+        batch_size=train_batch_size, shuffle=True, **kwargs)
 
     # Fetch test data
     test_loader = torch.utils.data.DataLoader(
@@ -38,7 +38,7 @@ def load_data():
                            transforms.ToTensor(),
                            transforms.Normalize((0.1307,), (0.3081,))
                        ])),
-        batch_size=args.test_batch_size, shuffle=True, **kwargs)
+        batch_size=test_batch_size, shuffle=True, **kwargs)
 
     return (train_loader, test_loader)
 
@@ -135,7 +135,7 @@ if __name__ == '__main__':
     optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 
     # Load data
-    train_loader, test_loader = load_data()
+    train_loader, test_loader = load_data(args.batch_size, args.test_batch_size)
 
     # Train & test the model
     for epoch in range(1, args.epochs + 1):
