@@ -42,7 +42,7 @@ def load_data():
 
     return (train_loader, test_loader)
 
-def train(model, optimizer, epoch, train_loader):
+def train(model, optimizer, epoch, train_loader, log_interval):
     # State that you are training the model
     model.train()
 
@@ -67,7 +67,7 @@ def train(model, optimizer, epoch, train_loader):
         optimizer.step()
 
         # Output debug message
-        if batch_idx % args.log_interval == 0:
+        if batch_idx % log_interval == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.data[0]))
@@ -139,7 +139,7 @@ if __name__ == '__main__':
 
     # Train & test the model
     for epoch in range(1, args.epochs + 1):
-        train(model, optimizer, epoch, train_loader)
+        train(model, optimizer, epoch, train_loader, log_interval=args.log_interval)
         test(model, test_loader)
 
 
