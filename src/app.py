@@ -37,12 +37,10 @@ t = transforms.Compose([
     transforms.Normalize((0.1307,), (0.3081,))
 ])
 img = torch.autograd.Variable(t(ori_img).unsqueeze(0))
+ori_img.close()
 
 # Predict
 model.eval()
 output = model(img)
 pred = output.data.max(1, keepdim=True)[1][0][0]
 print('Prediction: {}'.format(pred))
-
-# Close image file
-ori_img.close()
