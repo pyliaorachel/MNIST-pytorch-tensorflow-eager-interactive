@@ -13,7 +13,7 @@ def load_data(train_batch_size, test_batch_size):
     mnist = tf.keras.datasets.mnist
 
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
-    x_train, x_test = x_train / 255.0, x_test / 255.0 # Normalize
+    x_train, x_test = ((x_train / 255.0) - 0.1307) / 0.3081, ((x_test / 255.0 - 0.1307)) / 0.3081 # Normalize
     x_train = tf.expand_dims(x_train, -1) # Append channel dim
     x_test = tf.expand_dims(x_test, -1)
 
