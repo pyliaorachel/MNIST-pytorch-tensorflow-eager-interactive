@@ -1,0 +1,2 @@
+model_checkpoint_path: "/Users/liaopeiyu/Workspace/temp/pytorch-mnist-interactive/tensorflow_eager/ckpt-9380"
+all_model_checkpoint_paths: "/Users/liaopeiyu/Workspace/temp/pytorch-mnist-interactive/tensorflow_eager/ckpt-9380"
