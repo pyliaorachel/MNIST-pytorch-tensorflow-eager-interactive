@@ -6,7 +6,6 @@ import os
 import argparse
 from PIL import Image
 
-import numpy as np
 import tensorflow as tf
 import tensorflow.contrib.eager as tfe
 tf.enable_eager_execution()
