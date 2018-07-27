@@ -44,4 +44,4 @@ class Net(nn.Module):  # Inherit from `nn.Module`, define `__init__` & `forward`
         x = self.fc(x)
 
         # ... -> Log Softmax -> Output
-        return F.log_softmax(x)
+        return F.log_softmax(x, dim=1)

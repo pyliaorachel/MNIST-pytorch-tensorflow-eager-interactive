@@ -32,7 +32,7 @@ model.load_state_dict(torch.load(model_path))
 # Load & transform image
 ori_img = Image.open(args.image).convert('L')
 t = transforms.Compose([
-    transforms.Scale((28, 28)),
+    transforms.Resize((28, 28)),
     transforms.ToTensor(),
     transforms.Normalize((0.1307,), (0.3081,))
 ])

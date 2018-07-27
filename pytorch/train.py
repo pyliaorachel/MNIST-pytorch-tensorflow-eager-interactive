@@ -70,33 +70,31 @@ def train(model, optimizer, epoch, train_loader, log_interval):
         if batch_idx % log_interval == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.data[0]))
+                100. * batch_idx / len(train_loader), loss.data.item()))
 
 def test(model, test_loader):
-    # State that you are testing the model
+    # State that you are testing the model; this prevents layers e.g. Dropout to take effect
     model.eval()
 
     # Init loss & correct prediction accumulators
     test_loss = 0
     correct = 0
 
-    # Iterate over data
-    for data, target in test_loader:
-        # Wrap the input and target output in the `Variable` wrapper
-        # Forget the data's history by setting `volatile=True`
-        data, target = Variable(data, volatile=True), Variable(target)
+    # Optimize the validation process with `torch.no_grad()`
+    with torch.no_grad():
+        # Iterate over data
+        for data, target in test_loader: # Under `torch.no_grad()`, no need to wrap data & target in `Variable`
+            # Retrieve output
+            output = model(data)
 
-        # Retrieve output
-        output = model(data)
+            # Calculate & accumulate loss
+            test_loss += F.nll_loss(output, target, reduction='sum').data.item()
 
-        # Calculate & accumulate loss
-        test_loss += F.nll_loss(output, target, size_average=False).data[0]
+            # Get the index of the max log-probability (the predicted output label)
+            pred = output.data.argmax(1)
 
-        # Get the index of the max log-probability (the predicted output label)
-        pred = output.data.max(1, keepdim=True)[1]
-
-        # If correct, increment correct prediction accumulator
-        correct += pred.eq(target.data.view_as(pred)).cpu().sum()
+            # If correct, increment correct prediction accumulator
+            correct += pred.eq(target.data).sum()
 
     # Print out average test loss
     test_loss /= len(test_loader.dataset)
